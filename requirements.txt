@@ -1,0 +1,14 @@
+flask
+flask-cors
+flask-jwt-extended
+numpy
+pandas
+newsapi-python
+google-generativeai
+xlrd
+yfinance
+passlib
+pydantic
+pydantic[email]
+bcrypt
+asyncio
