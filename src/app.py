@@ -27,5 +27,5 @@ app.register_blueprint(portal_bp, url_prefix="/portal")
 def home():
     return "Welcome to FlowFi!"
 
-if __name__ == "__main__":
-    app.run(debug=True, port=8080)
+# if __name__ == "__main__":
+#     app.run(debug=True, port=8080)
