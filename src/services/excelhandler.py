@@ -1,4 +1,4 @@
-import pandas as pd
+from openpyxl import load_workbook
 from extensions import db
 from flask_jwt_extended import get_jwt_identity
 
@@ -17,31 +17,44 @@ class ExcelHandler:
             Tuple : (List of user's transactions in dict format, status code)
         """
         try:
-            df = pd.read_excel(file_stream)
-            df.columns = [column.lower() for column in df.columns]
+            # Read Excel file
+            wb = load_workbook(file_stream, data_only=True)
+            sheet = wb.active
 
-            if not all(col in df.columns for col in self.required_columns):
+            # Extract headers
+            headers = [str(cell.value).lower() if cell.value else "" for cell in sheet[1]]
+
+            if not all(col in headers for col in self.required_columns):
                 return {"error": "Invalid Excel format"}, 400
 
-            df = df[self.required_columns]
-            df.drop_duplicates(inplace=True)
-            df.fillna(0, inplace=True)
+            # Map header name -> column index
+            col_map = {col: headers.index(col) for col in self.required_columns}
+
+            # Build "df-like" list of dicts
+            records = []
+            for row in sheet.iter_rows(min_row=2, values_only=True):
+                record = {col: (row[col_map[col]] if row[col_map[col]] is not None else 0)
+                          for col in self.required_columns}
+                records.append(record)
+
+            # Drop duplicates (like df.drop_duplicates)
+            records = [dict(t) for t in {tuple(d.items()) for d in records}]
 
             user_email = get_jwt_identity()
             existing_entry = transactions.find_one({"email": user_email})
 
             if existing_entry:
-                existing_df = pd.DataFrame(existing_entry.get("data", []))
-                combined_df = pd.concat([existing_df, df], ignore_index=True)
-                combined_df.drop_duplicates(inplace=True)
-                combined_data = combined_df.to_dict(orient='records')
+                # mimic existing_df + concat + drop_duplicates
+                existing_data = existing_entry.get("data", [])
+                combined_data = existing_data + records
+                combined_data = [dict(t) for t in {tuple(d.items()) for d in combined_data}]
 
                 transactions.update_one(
                     {"email": user_email},
                     {"$set": {"data": combined_data}}
                 )
             else:
-                combined_data = df.to_dict(orient='records')
+                combined_data = records
                 transactions.insert_one({
                     "email": user_email,
                     "data": combined_data
