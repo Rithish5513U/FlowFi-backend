@@ -1,5 +1,5 @@
 from openpyxl import load_workbook
-from extensions import db
+from src.extensions import db
 from flask_jwt_extended import get_jwt_identity
 
 transactions = db['transactions']

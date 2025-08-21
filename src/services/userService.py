@@ -1,5 +1,5 @@
-from models.userModel import User
-from extensions import db, pwd_context
+from src.models.userModel import User
+from src.extensions import db, pwd_context
 from flask_jwt_extended import create_access_token
 from datetime import timedelta
 

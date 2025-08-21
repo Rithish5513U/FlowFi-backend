@@ -1,8 +1,8 @@
 import yfinance as yf
 from typing import List
-from models.stocksSchema import StockData
-from models.userModel import User
-from extensions import db
+from src.models.stocksSchema import StockData
+from src.models.userModel import User
+from src.extensions import db
 
 users = db['users']
 SYMBOLS = [

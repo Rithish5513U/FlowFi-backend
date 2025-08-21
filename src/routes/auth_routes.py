@@ -1,6 +1,6 @@
 from flask import Blueprint, request, jsonify
-from services.userService import create_user, verify_user
-from models.userModel import User
+from src.services.userService import create_user, verify_user
+from src.models.userModel import User
 
 auth_bp = Blueprint("auth", __name__)
 

@@ -1,12 +1,12 @@
 from flask import Flask
 from flask_cors import CORS
-from config import Config
-from extensions import jwt
-from routes.auth_routes import auth_bp
-from routes.news_routes import news_bp
-from routes.faq_routes import faq_bp
-from routes.excel_routes import excel_bp
-from routes.portal_routes import portal_bp
+from src.config import Config
+from src.extensions import jwt
+from src.routes.auth_routes import auth_bp
+from src.routes.news_routes import news_bp
+from src.routes.faq_routes import faq_bp
+from src.routes.excel_routes import excel_bp
+from src.routes.portal_routes import portal_bp
 
 app = Flask(__name__)
 app.config.from_object(Config)

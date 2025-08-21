@@ -1,6 +1,6 @@
 from flask import Blueprint, jsonify, request
 from flask_jwt_extended import jwt_required
-from services.excelhandler import ExcelHandler
+from src.services.excelhandler import ExcelHandler
 
 excel_bp = Blueprint("excel", __name__)
 

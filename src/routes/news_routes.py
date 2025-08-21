@@ -1,6 +1,6 @@
 from flask import Blueprint, request, jsonify
 from flask_jwt_extended import jwt_required
-from services.news import News
+from src.services.news import News
 
 news_bp = Blueprint("news", __name__)
 

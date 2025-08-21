@@ -1,5 +1,5 @@
 from flask import Blueprint, request, jsonify
-from services.faq_chatbot import FAQChatBot
+from src.services.faq_chatbot import FAQChatBot
 from flask_jwt_extended import jwt_required
 
 faq_bp = Blueprint("faq", __name__)

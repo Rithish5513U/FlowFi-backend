@@ -1,5 +1,5 @@
 from pydantic import BaseModel, EmailStr
-from models.portalSchema import Asset
+from src.models.portalSchema import Asset
 from typing import List
 
 class User(BaseModel):

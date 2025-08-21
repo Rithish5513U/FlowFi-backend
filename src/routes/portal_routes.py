@@ -1,8 +1,8 @@
 from flask import Blueprint, jsonify, request
 from flask_jwt_extended import jwt_required, get_jwt_identity
-from services.portalService import fetchStocks, save_user
-from services.userService import fetchUser
-from models.portalSchema import Asset
+from src.services.portalService import fetchStocks, save_user
+from src.services.userService import fetchUser
+from src.models.portalSchema import Asset
 
 portal_bp = Blueprint("portal", __name__)
 
