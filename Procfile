@@ -1,1 +1,1 @@
-web: gunicorn -w 4 -b 0.0.0.0:10000 src.app:app
+web: gunicorn src.app:app
