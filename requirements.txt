@@ -11,3 +11,4 @@ pydantic[email]
 bcrypt
 asyncio
 pymongo
+gunicorn
