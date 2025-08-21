@@ -12,3 +12,4 @@ bcrypt
 asyncio
 pymongo
 gunicorn
+python-dotenv
